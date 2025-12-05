@@ -33,10 +33,21 @@ def find_two_highest2(bank):
     for index, b in enumerate(bank[1:]):
         for i, h in enumerate(highest):
             if int(b) > int(h):
-                highest[i] = int(b)
+                if len(bank) - (index + 1) >= 11:
+                    for k in highest[:i]:
+                        is_true = False
+                        if int(k) <= int(b):
+                            highest[-1] = int(b)
+                            is_true = True
+                            break
+                    if not is_true:
+                        del highest[:i]
+
+                    break
+                highest[-1] = int(b)
                 break
-        if len(bank) - (index + 1) < 12:
-            highest.append(b)
+        if len(highest) < 12:
+            highest.append(int(b))
             continue
     string = ''
     for s in highest:
