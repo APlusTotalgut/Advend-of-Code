@@ -29,30 +29,24 @@ def find_two_highest(bank):
     return string
 
 def find_two_highest2(bank):
-    highest = [int(bank[0])]
-    for index, b in enumerate(bank[1:]):
-        for i, h in enumerate(highest):
-            if int(b) > int(h):
-                if len(bank) - (index + 1) >= 11:
-                    for k in highest[:i]:
-                        is_true = False
-                        if int(k) <= int(b):
-                            highest[-1] = int(b)
-                            is_true = True
-                            break
-                    if not is_true:
-                        del highest[:i]
-
-                    break
-                highest[-1] = int(b)
-                break
-        if len(highest) < 12:
-            highest.append(int(b))
-            continue
+    all_highest = []
+    numbers = bank
+    for min in range(11, -1, -1):
+        numbers, highest = find_biggest_first_with_min_numbers_after(numbers, min)
+        all_highest.append(highest)
     string = ''
-    for s in highest:
+    for s in all_highest:
         string += str(s)
     return string
+
+def find_biggest_first_with_min_numbers_after(numbers, min_numbers_after):
+    biggest_number = 0
+    biggest_number_index = 0
+    for index, n in enumerate(numbers):
+        if biggest_number < int(n) and len(numbers) - (index + 1) >= min_numbers_after:
+            biggest_number = int(n)
+            biggest_number_index = index
+    return numbers[biggest_number_index + 1:], biggest_number
 
 
 with open('./data/banks.txt') as file:
