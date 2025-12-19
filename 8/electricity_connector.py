@@ -1,7 +1,7 @@
 def get_3d_distance(p, q):
     return (abs(p[0] - q[0]) ** 2 + abs(p[1] - q[1]) ** 2 + abs(p[2] - q[2]) ** 2) ** 0.5
 
-with open('./data_small.txt') as data:
+with open('8/data.txt') as data:
     data = data.read().split('\n')
     sdata = []
     for d in data:
@@ -39,16 +39,38 @@ def find_and_check_all(pair, all_pairs):
                 continue
             all_pairs.append(p)
             npair = find_pair(p)
-            return find_and_check_all(npair, all_pairs)
+            all_pairs = find_and_check_all(npair, all_pairs)
+        return all_pairs
     else:
         return all_pairs
 
-print(circuits)
+#print(circuits)
+
+def lenFunk(list):
+    return len(list)
+
+connectedWires = set()
+every_connection = []
 
 # cncto = connector; cncts = connections
-for cncto, cncts in circuits.items():
-    all_connections = cncts
-    for cs in cncts:
+for cncto, cncts in circuits.copy().items():
+    if cncto in connectedWires:
+        continue
+    all_connections = cncts.copy()
+    all_connections.append(cncto)
+    for cs in cncts.copy():
         pair = find_pair(cs)
-        all_connections = find_and_check_all(pair, all_connections)
-    print(cncto, all_connections)
+        if pair:
+            all_connections = find_and_check_all(pair, all_connections)
+    for c in all_connections:
+        connectedWires.add(c)
+    every_connection.append(all_connections)
+
+every_connection.sort(reverse=True, key=lenFunk)
+largest = []
+for e in every_connection:
+    if len(e) in largest:
+        continue
+    largest.append(len(e))
+
+print('ende')
