@@ -3,7 +3,11 @@ import math
 def get_3d_distance(p, q):
     return (abs(p[0] - q[0]) ** 2 + abs(p[1] - q[1]) ** 2 + abs(p[2] - q[2]) ** 2) ** 0.5
 
+<<<<<<< HEAD
 with open('data_small.txt') as data:
+=======
+with open('8/data.txt') as data:
+>>>>>>> 6d216f1c76a71c6ead58d3ad1aaf22713f1e1a83
     data = data.read().split('\n')
     sdata = []
     for d in data:
@@ -79,6 +83,7 @@ for cncto, cncts in circuits.copy().items():
         connectedWires.add(c)
     every_connection.append(all_connections)
 
+<<<<<<< HEAD
 print('\n')
 for e in every_connection:
   for f in e:
@@ -87,10 +92,14 @@ for e in every_connection:
 
 every_connection.sort(reverse=True, key=lenFunk)
 
+=======
+every_connection.sort(reverse=True, key=lenFunk)
+>>>>>>> 6d216f1c76a71c6ead58d3ad1aaf22713f1e1a83
 largest = []
 for e in every_connection:
     if len(e) in largest:
         continue
+<<<<<<< HEAD
     
     largest.append(len(e))
     
@@ -99,3 +108,8 @@ largest = largest[0:3]
 print(math.prod(largest))
 
 print('ende')
+=======
+    largest.append(len(e))
+
+print('ende')
+>>>>>>> 6d216f1c76a71c6ead58d3ad1aaf22713f1e1a83
